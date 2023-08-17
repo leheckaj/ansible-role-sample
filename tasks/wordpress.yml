@@ -1,0 +1,11 @@
+---
+- name: Download latest WordPress release
+  get_url:
+    url: https://wordpress.org/latest.zip
+    dest: /tmp/wordpress-latest.zip
+
+- name: Extract WordPress into /var/www
+  unarchive:
+   src: /tmp/wordpress-latest.zip
+   dest: /var/www/
+   remote_src: true                                                          

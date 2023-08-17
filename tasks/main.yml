@@ -1,0 +1,8 @@
+---
+# tasks file for wordpress
+- name: include install
+  include: install.yml
+- name: include config
+  include: config.yml
+- name: include wordpress
+  include: wordpress.yml

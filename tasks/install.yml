@@ -1,0 +1,23 @@
+---
+- name: Remove nginx
+  apt:
+    name:
+      - nginx
+      - nginx-core
+      - nginx-full
+    state: absent
+
+- name: Install LAMP packages
+  become: true
+  apt:
+    name: "{{ item }}"
+    update_cache: yes 
+    state: latest
+  with_items:
+     - libapache2-mod-php7.4
+     - php-mysql
+     - default-mysql-server
+     - python3-pymysql
+     - python3-mysqldb
+     - unzip
+

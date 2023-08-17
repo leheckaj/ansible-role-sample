@@ -1,0 +1,57 @@
+---
+- name: Create MySQL database
+  mysql_db:
+     name: "wordpress"
+     state: present
+     login_unix_socket:  /run/mysqld/mysqld.sock
+
+- name: Create MySQL User with Grants
+  mysql_user:
+   name: "wordpress"
+   # password: "strasneSloziteHeslo"
+   password: "{{ lookup('ansible.builtin.env', 'MYSQL_PASSWORD') }}"
+   priv: "wordpress.*:ALL"
+   login_unix_socket:  /run/mysqld/mysqld.sock
+
+- name: Copy Wordpress Config
+  copy:
+    src: /etc/ansible/files/wp-config.php
+    dest: /var/www/wordpress/wp-config.php
+
+- name: Set Config Variables (password)
+  replace:
+    dest: /var/www/wordpress/wp-config.php
+    regexp: "password_here"
+    replace: "{{ lookup('ansible.builtin.env', 'MYSQL_PASSWORD') }}"
+    backup: yes
+
+- name: Set Config Variables (username_here)
+  replace:
+    dest: /var/www/wordpress/wp-config.php
+    regexp: "username_here"
+    replace: "wordpress"
+    backup: yes
+
+- name: Set Config Variables (database_name_here)
+  replace:
+    dest: /var/www/wordpress/wp-config.php
+    regexp: "database_name_here"
+    replace: "wordpress"
+    backup: yes
+
+- name: Copy Ports.conf :80
+  copy:
+    src: /etc/ansible/files/ports.conf
+    dest: /etc/apache2/ports.conf
+  notify: Restart Apache2   
+
+
+- name: Create Apache Vhost
+  template:
+    src: /etc/ansible/templates/apache_vhost.j2
+    dest: /etc/apache2/sites-enabled/wordpress.conf  
+  notify: Restart Apache2
+
+- name: Check apache2 config
+  become: true
+  shell: apache2ctl -t 
