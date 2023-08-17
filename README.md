@@ -11,8 +11,8 @@ Create file requirements.yml:
 
 From WSL:
 
-  mkdir roles/
-  ansible-galaxy install --role-file requirements.yml --roles-path roles/
+    mkdir roles/
+    ansible-galaxy install --role-file requirements.yml --roles-path roles/
 
 This will install the role.
 
