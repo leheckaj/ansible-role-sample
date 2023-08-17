@@ -3,6 +3,19 @@ Ansible Role: Wordpress
 
 Uninstalls nginx, installs Apache + MariaDB. In next step is downloaded and preconfigured Wordpress. Available only for Debian/Ubuntu Linux system.
 
+Create file requirements.yml:
+
+  - name: wordpress
+  src: https://github.com/leheckaj/ansible-role-sample.git
+  scm: git
+
+From WSL:
+
+  mkdir roles/
+  ansible-galaxy install --role-file requirements.yml --roles-path roles/
+
+This will install the role.
+
 Requirements
 ------------
 
