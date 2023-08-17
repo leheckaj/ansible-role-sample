@@ -5,9 +5,10 @@ Uninstalls nginx, installs Apache + MariaDB. In next step is downloaded and prec
 
 Create file requirements.yml:
 
-  - name: wordpress
-  src: https://github.com/leheckaj/ansible-role-sample.git
-  scm: git
+  
+          - name: wordpress
+          src: https://github.com/leheckaj/ansible-role-sample.git
+          scm: git
 
 From WSL:
 
