@@ -70,7 +70,31 @@ Create file main.yml:
        apache_docroot: /var/www/wordpress/
       roles:
         - role: wordpress
-      
+
+ Create template for Apache in /etc/ansible/templates/apache_vhost.j2
+
+      <VirtualHost *:80>
+        ServerName {{ apache_domain }}
+        DocumentRoot {{ apache_docroot }}
+
+        ServerAdmin admin@example.com
+        <Directory {{ apache_docroot }}>
+          AllowOverride All
+          Options -Indexes +FollowSymLinks
+          Require all granted
+        </Directory>
+
+        ErrorLog ${APACHE_LOG_DIR}/{{ apache_domain }}.error.log
+        LogLevel warn
+        CustomLog ${APACHE_LOG_DIR}/{{ apache_domain }}.access.log combined
+
+      </VirtualHost>
+
+Create /etc/ansible/files/ports.conf
+
+      and download files from: https://github.com/leheckaj/ansible-wordpress-role/tree/main/ansible/files
+
+     
       
 License
 -------
