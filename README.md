@@ -90,9 +90,7 @@ Create file main.yml:
 
       </VirtualHost>
 
-Create /etc/ansible/files/ports.conf
-
-      and download files from: https://github.com/leheckaj/ansible-wordpress-role/tree/main/ansible/files
+Create folder /etc/ansible/files/  and download files from: https://github.com/leheckaj/ansible-wordpress-role/tree/main/ansible/files
 
      
       
